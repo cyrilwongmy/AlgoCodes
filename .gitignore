@@ -1,7 +1,9 @@
-
+.idea/
 .idea/vcs.xml
 out/production/算法数据结构左程云/class06/Code03_SmallerEqualBigger$Node.class
 out/production/算法数据结构左程云/class06/Code03_SmallerEqualBigger.class
 out/production/算法数据结构左程云/class06/Code04_CopyListWithRandom.class
 out/production/算法数据结构左程云/class06/Code05_FindFirstIntersectNode.class
 out/
+*.iml
+.idea/.gitignore
