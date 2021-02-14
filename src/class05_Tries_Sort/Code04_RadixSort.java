@@ -1,4 +1,4 @@
-package class05;
+package class05_Tries_Sort;
 
 import java.util.Arrays;
 

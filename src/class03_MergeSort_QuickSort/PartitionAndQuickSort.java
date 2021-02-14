@@ -1,6 +1,4 @@
-package class03;
-
-import java.util.Arrays;
+package class03_MergeSort_QuickSort;
 
 /**
  * @author mingyan wang

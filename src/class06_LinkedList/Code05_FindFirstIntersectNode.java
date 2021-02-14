@@ -1,4 +1,4 @@
-package class06;
+package class06_LinkedList;
 
 /**
  * @author mingyan wang

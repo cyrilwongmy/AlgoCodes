@@ -1,4 +1,4 @@
-package class04;
+package class04_Heap;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;

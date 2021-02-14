@@ -1,4 +1,4 @@
-package class05;
+package class05_Tries_Sort;
 
 /**
  * @author mingyan wang

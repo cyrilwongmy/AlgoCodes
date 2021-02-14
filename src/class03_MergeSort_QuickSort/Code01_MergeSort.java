@@ -1,4 +1,4 @@
-package class03;
+package class03_MergeSort_QuickSort;
 
 /**
  * @author mingyanwang
