@@ -7,7 +7,7 @@ package class04_Heap;
 public class Code01_MyHeap {
     // practice HeapInsert and Heapify methods
     public static class MyMaxHeap {
-        private int[] heap;
+        private final int[] heap;
         private final int limit;
         private int heapSize;
 
@@ -74,7 +74,7 @@ public class Code01_MyHeap {
 
     }
     public static class RightMaxHeap {
-        private int[] arr;
+        private final int[] arr;
         private final int limit;
         private int size;
 

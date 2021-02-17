@@ -13,10 +13,10 @@ public class Code03_DynamicHeap {
 
     // 堆
     public static class MyHeap<T> {
-        private ArrayList<T> heap;
-        private HashMap<T, Integer> indexMap;
+        private final ArrayList<T> heap;
+        private final HashMap<T, Integer> indexMap;
         private int heapSize;
-        private Comparator<? super T> comparator;
+        private final Comparator<? super T> comparator;
 
         public MyHeap(Comparator<? super T> com) {
             heap = new ArrayList<>();

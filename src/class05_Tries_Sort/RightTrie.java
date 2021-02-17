@@ -7,7 +7,7 @@ import java.util.HashMap;
  * @date 2021/1/20 5:01 PM
  */
 public class RightTrie {
-    private HashMap<String, Integer> box;
+    private final HashMap<String, Integer> box;
 
     public RightTrie() {
         box = new HashMap<>();

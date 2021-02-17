@@ -25,7 +25,7 @@ public class generalTries {
         char[] chars = word.toCharArray();
         int index = 0;
         for (int i = 0; i < chars.length; i++) {
-            index = (int) chars[i];
+            index = chars[i];
             if (!node.paths.containsKey(index)) {
                 node.paths.put(index, new Node());
             }
@@ -43,7 +43,7 @@ public class generalTries {
         char[] chars = word.toCharArray();
         int index;
         for (int i = 0; i < chars.length; i++) {
-            index = (int) chars[i];
+            index = chars[i];
             if (!node.paths.containsKey(index)) {
                 return 0;
             }
