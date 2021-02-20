@@ -2,6 +2,7 @@ package class08_BSTRecursiveTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Code08_MaxDistance {
 
@@ -16,33 +17,84 @@ public class Code08_MaxDistance {
 	}
 
 	public static int maxDistance1(Node head) {
-		return 0;
+		if (head == null) {
+			return 0;
+		}
+		ArrayList<Node> arr = getPrelist(head);
+		HashMap<Node, Node> parentMap = getParentMap(head);
+		int max = 0;
+		for (int i = 0; i < arr.size(); i++) {
+			for (int j = i; j < arr.size(); j++) {
+				max = Math.max(max, distance(parentMap, arr.get(i), arr.get(j)));
+			}
+		}
+		return max;
 	}
 
 	public static ArrayList<Node> getPrelist(Node head) {
-	    return null;
+		ArrayList<Node> arr = new ArrayList<>();
+		fillPrelist(head, arr);
+		return arr;
 	}
 
 	public static void fillPrelist(Node head, ArrayList<Node> arr) {
-		return;
+		if (head == null) {
+			return;
+		}
+		arr.add(head);
+		fillPrelist(head.left, arr);
+		fillPrelist(head.right, arr);
 	}
 
 	public static HashMap<Node, Node> getParentMap(Node head) {
-	    return null;
+		HashMap<Node, Node> map = new HashMap<>();
+		map.put(head, null);
+		fillParentMap(head, map);
+		return map;
 	}
 
 	public static void fillParentMap(Node head, HashMap<Node, Node> parentMap) {
-
+		if (head.left != null) {
+			parentMap.put(head.left, head);
+			fillParentMap(head.left, parentMap);
+		}
+		if (head.right != null) {
+			parentMap.put(head.right, head);
+			fillParentMap(head.right, parentMap);
+		}
 	}
 
 	public static int distance(HashMap<Node, Node> parentMap, Node o1, Node o2) {
-		return 0;
+		HashSet<Node> o1Set = new HashSet<>();
+		Node cur = o1;
+		o1Set.add(cur);
+		while (parentMap.get(cur) != null) {
+			cur = parentMap.get(cur);
+			o1Set.add(cur);
+		}
+		cur = o2;
+		while (!o1Set.contains(cur)) {
+			cur = parentMap.get(cur);
+		}
+		Node lowestAncestor = cur;
+		cur = o1;
+		int distance1 = 1;
+		while (cur != lowestAncestor) {
+			cur = parentMap.get(cur);
+			distance1++;
+		}
+		cur = o2;
+		int distance2 = 1;
+		while (cur != lowestAncestor) {
+			cur = parentMap.get(cur);
+			distance2++;
+		}
+		return distance1 + distance2 - 1;
 	}
 
 	public static int maxDistance2(Node head) {
-		return 0;
+		return process(head).maxDistance;
 	}
-
 	public static class Info {
 		public int maxDistance;
 		public int height;
@@ -53,8 +105,26 @@ public class Code08_MaxDistance {
 		}
 	}
 
+	/**
+	 * 处理二叉树的最远距离
+	 * 需要从子树获得的信息：子树中的最大距离，子树的高度
+	 * @param head 二叉树头节点
+	 * @return
+	 */
 	public static Info process(Node head) {
-		return null;
+	    if (head == null) {
+	    	return new Info(0, 0);
+		}
+
+	    Info leftInfo = process(head.left);
+	    Info rightInfo = process(head.right);
+
+	    int leftHeight = leftInfo.height;
+	    int rightHeight = rightInfo.height;
+
+		int height = Math.max(leftHeight, rightHeight) + 1;
+		int maxDistance = Math.max(Math.max(leftInfo.maxDistance, rightInfo.maxDistance), leftHeight + rightHeight + 1);
+		return new Info(maxDistance, height);
 	}
 
 	// for test

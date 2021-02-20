@@ -15,17 +15,37 @@ public class Code09_MaxHappy {
 		}
 
 	}
-
 	public static int maxHappy1(Employee boss) {
-		return 0;
+		if (boss == null) {
+			return 0;
+		}
+		return process1(boss, false);
 	}
 
 	public static int process1(Employee cur, boolean up) {
-	    return 0;
+		if (up) {
+			int ans = 0;
+			for (Employee next : cur.nexts) {
+				ans += process1(next, false);
+			}
+			return ans;
+		} else {
+			int p1 = cur.happy;
+			int p2 = 0;
+			for (Employee next : cur.nexts) {
+				p1 += process1(next, true);
+				p2 += process1(next, false);
+			}
+			return Math.max(p1, p2);
+		}
 	}
 
 	public static int maxHappy2(Employee boss) {
-		return 0;
+	    if (boss == null) {
+	    	return 0;
+		}
+		Info res = process2(boss);
+		return Math.max(res.yes, res.no);
 	}
 
 	public static class Info {
@@ -39,7 +59,26 @@ public class Code09_MaxHappy {
 	}
 
 	public static Info process2(Employee x) {
-	    return null;
+		if (x == null) {
+			return new Info(0, 0);
+		}
+		int yesHappy = 0;
+		int noHappy = 0;
+		// x will come, nexts will not come, yes happy.
+        yesHappy = x.happy;
+
+		// x will not come, nexts can come or not come.
+		// x No happy
+		Info subInfo;
+		int max;
+		for (Employee employee : x.nexts) {
+			subInfo = process2(employee);
+			max = Math.max(subInfo.yes, subInfo.no);
+			// TODO: crucial
+			yesHappy += subInfo.no;
+			noHappy += max;
+		}
+	    return new Info(yesHappy, noHappy);
 	}
 
 	// for test

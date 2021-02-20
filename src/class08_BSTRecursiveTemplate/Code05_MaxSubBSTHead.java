@@ -32,7 +32,7 @@ public class Code05_MaxSubBSTHead {
 	}
 
 	public static Node maxSubBSTHead2(Node head) {
-		return null;
+		return process(head).maxSubBSTHead;
 	}
 
 	public static class Info {

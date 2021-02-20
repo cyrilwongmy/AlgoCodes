@@ -13,21 +13,45 @@ public class Code04_MaxSubBSTSize {
 			this.value = data;
 		}
 	}
-
 	public static int getBSTSize(Node head) {
-		return 0;
+		if (head == null) {
+			return 0;
+		}
+		ArrayList<Node> arr = new ArrayList<>();
+		in(head, arr);
+		for (int i = 1; i < arr.size(); i++) {
+			if (arr.get(i).value <= arr.get(i - 1).value) {
+				return 0;
+			}
+		}
+		return arr.size();
 	}
 
 	public static void in(Node head, ArrayList<Node> arr) {
-		return;
+		if (head == null) {
+			return;
+		}
+		in(head.left, arr);
+		arr.add(head);
+		in(head.right, arr);
 	}
 
 	public static int maxSubBSTSize1(Node head) {
-		return 0;
+		if (head == null) {
+			return 0;
+		}
+		int h = getBSTSize(head);
+		if (h != 0) {
+			return h;
+		}
+		return Math.max(maxSubBSTSize1(head.left), maxSubBSTSize1(head.right));
 	}
 
 	public static int maxSubBSTSize2(Node head) {
-		return 0;
+	    if (head == null) {
+	    	return 0;
+		}
+		return process(head).maxSubBSTSize;
 	}
 
 	public static class Info {
@@ -44,8 +68,42 @@ public class Code04_MaxSubBSTSize {
 		}
 	}
 
+	/**
+	 * TODO:
+	 * 子树需要提供Info，包含子树最大值size，子树最小值min，子树是不是BST，子树的最大BST size。
+	 * @param head
+	 * @return
+	 */
 	public static Info process(Node head) {
-		return null;
+		if (head == null) {
+			return null;
+		}
+		Info leftInfo = process(head.left);
+		Info rightInfo = process(head.right);
+		int min = head.value;
+		int max = head.value;
+		int maxBSTSize = 0;
+		if (leftInfo != null) {
+			min = Math.min(min, leftInfo.min);
+			max = Math.max(max, leftInfo.max);
+			maxBSTSize = Math.max(maxBSTSize, leftInfo.maxSubBSTSize);
+		}
+		if (rightInfo != null) {
+			min = Math.min(min, rightInfo.min);
+			max = Math.max(max, rightInfo.max);
+			maxBSTSize = Math.max(maxBSTSize, rightInfo.maxSubBSTSize);
+		}
+		boolean isBST = false;
+		if ((leftInfo == null || (leftInfo.isBST && leftInfo.max < head.value))
+				&& (rightInfo == null || (rightInfo.isBST) && rightInfo.min > head.value)) {
+			isBST = true;
+			maxBSTSize = (leftInfo == null ? 0 : leftInfo.maxSubBSTSize)
+					+ (rightInfo == null ? 0: rightInfo.maxSubBSTSize) + 1;
+		}
+
+
+
+		return new Info(isBST, maxBSTSize, min, max);
 	}
 
 	// for test
