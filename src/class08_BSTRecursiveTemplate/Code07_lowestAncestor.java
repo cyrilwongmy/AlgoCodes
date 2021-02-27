@@ -23,6 +23,12 @@ public class Code07_lowestAncestor {
 	}
 
 	public static Node lowestAncestor2(Node head, Node o1, Node o2) {
+		Info info = process(head, o1, o2);
+		if (info != null) {
+			if (info.findO1 && info.findO2 && info.ans != null) {
+				return info.ans;
+			}
+		}
 		return null;
 	}
 
@@ -39,7 +45,30 @@ public class Code07_lowestAncestor {
 	}
 
 	public static Info process(Node head, Node o1, Node o2) {
-	    return null;
+	 	if (head == null) {
+			return null;
+		}
+	 	Info leftInfo = process(head.left, o1, o2);
+	 	Info rightInfo = process(head.right, o1, o2);
+	 	Boolean findO1 = false;
+		Boolean findO2 = false;
+		if (leftInfo != null) {
+	 	    if (leftInfo.findO1 && !leftInfo.findO2) {
+	 	    	findO1 = true;
+			} else if (!leftInfo.findO1 && leftInfo.findO2) {
+				findO2 = true;
+			} else {
+
+			}
+		}
+	 	if (rightInfo != null) {
+
+		}
+	 	Node ans = null;
+
+
+	 	return null;
+
 	}
 
 	// for test
